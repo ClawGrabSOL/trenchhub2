@@ -1,17 +1,11 @@
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import {
-  getAllCommunities,
-  createCommunity,
-  addMember,
-  slugExists,
-  totalCommunities,
+  getAllCommunities, createCommunity, addMember, slugExists, totalCommunities,
 } from '@/lib/db';
 
 function slugify(str) {
-  return str
-    .toLowerCase()
-    .trim()
+  return str.toLowerCase().trim()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
@@ -21,13 +15,12 @@ function slugify(str) {
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const search   = searchParams.get('search')   || '';
-    const category = searchParams.get('category') || '';
-    const sort     = searchParams.get('sort')     || 'newest';
-
-    const communities = getAllCommunities({ search, category, sort });
-    const total       = totalCommunities();
-
+    const communities = await getAllCommunities({
+      search:   searchParams.get('search')   || '',
+      category: searchParams.get('category') || '',
+      sort:     searchParams.get('sort')     || 'newest',
+    });
+    const total = await totalCommunities();
     return NextResponse.json({ communities, total });
   } catch (err) {
     console.error(err);
@@ -40,43 +33,32 @@ export async function POST(request) {
     const body = await request.json();
     const { name, description, category, rules, banner_color, banner_image, icon_image, owner } = body;
 
-    if (!name || !owner) {
-      return NextResponse.json({ error: 'name and owner required' }, { status: 400 });
-    }
+    if (!name || !owner) return NextResponse.json({ error: 'name and owner required' }, { status: 400 });
     if (name.trim().length < 3 || name.trim().length > 50) {
       return NextResponse.json({ error: 'Name must be 3–50 characters' }, { status: 400 });
     }
 
-    // Unique slug
-    let slug    = slugify(name);
-    const base  = slug;
+    let slug = slugify(name);
+    const base = slug;
     let attempt = 0;
-    while (slugExists(slug)) {
-      attempt++;
-      slug = `${base}-${attempt}`;
-    }
+    while (await slugExists(slug)) { attempt++; slug = `${base}-${attempt}`; }
 
     const id  = uuidv4();
     const now = new Date().toISOString();
 
-    const community = createCommunity({
-      id,
-      name:         name.trim(),
-      slug,
+    const community = await createCommunity({
+      id, name: name.trim(), slug,
       description:  (description || '').trim(),
-      category:     category || 'General',
-      rules:        (rules || '').trim(),
+      category:     category     || 'General',
+      rules:        (rules       || '').trim(),
       banner_color: banner_color || '#7AB541',
       banner_image: banner_image || null,
       icon_image:   icon_image   || null,
-      member_count: 0,
-      post_count:   0,
-      owner:        owner.trim(),
-      created_at:   now,
+      member_count: 0, post_count: 0,
+      owner: owner.trim(), created_at: now,
     });
 
-    // Auto-join owner (addMember bumps member_count from 0 → 1)
-    addMember({ id: uuidv4(), community_id: id, username: owner.trim(), joined_at: now });
+    await addMember({ id: uuidv4(), community_id: id, username: owner.trim(), joined_at: now });
 
     return NextResponse.json({ community }, { status: 201 });
   } catch (err) {

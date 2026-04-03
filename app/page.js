@@ -6,9 +6,11 @@ import { ArrowRight, Layers, Users, Globe } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 
 async function getData() {
-  const newest  = getAllCommunities({ sort: 'newest'  }).slice(0, 6);
-  const popular = getAllCommunities({ sort: 'popular' }).slice(0, 6);
-  const total   = totalCommunities();
+  const [newest, popular, total] = await Promise.all([
+    getAllCommunities({ sort: 'newest'  }).then(r => r.slice(0, 6)),
+    getAllCommunities({ sort: 'popular' }).then(r => r.slice(0, 6)),
+    totalCommunities(),
+  ]);
   return { newest, popular, total };
 }
 
