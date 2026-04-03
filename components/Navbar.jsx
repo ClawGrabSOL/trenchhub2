@@ -14,7 +14,7 @@ export default function Navbar() {
   const [err,     setErr]     = useState('');
 
   useEffect(() => {
-    const s = localStorage.getItem('trenchmunity_user');
+    const s = localStorage.getItem('Trenchhub_user');
     if (s) setUser(s);
     else   setEditing(true);
   }, []);
@@ -22,7 +22,7 @@ export default function Navbar() {
   const save = () => {
     const v = draft.trim().replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 25);
     if (v.length < 2) { setErr('At least 2 characters'); return; }
-    localStorage.setItem('trenchmunity_user', v);
+    localStorage.setItem('Trenchhub_user', v);
     setUser(v);
     setEditing(false);
     setErr('');
@@ -40,9 +40,9 @@ export default function Navbar() {
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-trench-card border border-trench-border2 rounded-2xl p-8 w-full max-w-sm shadow-2xl scale-in">
             <div className="flex items-center gap-3 mb-5">
-              <img src="/logo.png" alt="Trenchmunity" className="w-10 h-10" />
+              <img src="/logo.png" alt="Trenchhub" className="w-10 h-10" />
               <div>
-                <h2 className="text-lg font-bold text-white leading-tight">Welcome to Trenchmunity</h2>
+                <h2 className="text-lg font-bold text-white leading-tight">Welcome to Trenchhub</h2>
                 <p className="text-[12px] text-trench-muted">Pick a username to get started</p>
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
             <img
               src="/logo.png"
-              alt="Trenchmunity"
+              alt="Trenchhub"
               className="w-7 h-7 transition-transform duration-200 group-hover:scale-105"
             />
             <span className="font-bold text-[15px] tracking-tight">

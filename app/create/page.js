@@ -31,7 +31,7 @@ export default function CreatePage() {
   });
 
   useEffect(() => {
-    const s = localStorage.getItem('trenchmunity_user');
+    const s = localStorage.getItem('Trenchhub_user');
     if (s) setUser(s);
     else   router.push('/');
   }, []);
@@ -146,7 +146,7 @@ export default function CreatePage() {
           />
           {form.name && (
             <p className="text-[11px] text-trench-muted mt-1.5">
-              URL: <span className="text-trench-accent font-mono">trenchmunity.com/c/{slug || '...'}</span>
+              URL: <span className="text-trench-accent font-mono">Trenchhub.com/c/{slug || '...'}</span>
             </p>
           )}
         </div>

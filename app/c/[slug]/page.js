@@ -115,7 +115,7 @@ export default function CommunityPage() {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    const s = localStorage.getItem('trenchmunity_user');
+    const s = localStorage.getItem('trenchhub_user');
     if (s) setUser(s);
   }, []);
 
@@ -126,7 +126,7 @@ export default function CommunityPage() {
       if (res.status === 404) { router.push('/explore'); return; }
       const json = await res.json();
       setData(json);
-      const s = localStorage.getItem('trenchmunity_user');
+      const s = localStorage.getItem('trenchhub_user');
       if (s && json.members) setJoined(json.members.some(m => m.username === s));
     } finally { setLoading(false); }
   }, [slug]);
