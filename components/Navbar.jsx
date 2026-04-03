@@ -14,6 +14,12 @@ export default function Navbar() {
   const [err,     setErr]     = useState('');
 
   useEffect(() => {
+    // migrate old key only if new key not already set
+    const newKey = localStorage.getItem('trenchhub_user');
+    if (!newKey) {
+      const old = localStorage.getItem('trenchmunity_user');
+      if (old) { localStorage.setItem('trenchhub_user', old); localStorage.removeItem('trenchmunity_user'); }
+    }
     const s = localStorage.getItem('trenchhub_user');
     if (s) setUser(s);
     else   setEditing(true);

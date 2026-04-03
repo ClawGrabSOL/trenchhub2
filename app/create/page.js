@@ -31,9 +31,9 @@ export default function CreatePage() {
   });
 
   useEffect(() => {
-    const s = localStorage.getItem('Trenchhub_user');
+    const s = localStorage.getItem('trenchhub_user');
     if (s) setUser(s);
-    else   router.push('/');
+    // no redirect — Navbar modal handles unauthenticated state
   }, []);
 
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
@@ -233,7 +233,7 @@ export default function CreatePage() {
         <button
           type="submit"
           className="btn-primary w-full py-3 text-[15px]"
-          disabled={loading || !hasName}
+          disabled={loading || !hasName || !user}
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
