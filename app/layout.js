@@ -8,7 +8,6 @@ export const metadata = {
     icon:  '/favicon.png',
     apple: '/favicon.png',
   },
-  themeColor: '#7AB541',
   openGraph: {
     title:       'Trenchhub',
     description: 'Build communities. No limits.',
@@ -17,12 +16,15 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  themeColor: '#7AB541',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
-        <meta name="theme-color" content="#7AB541" />
       </head>
       <body>
         <div className="min-h-screen flex flex-col">
@@ -30,10 +32,7 @@ export default function RootLayout({ children }) {
           <main className="flex-1">{children}</main>
           <footer className="border-t border-trench-border py-6 mt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-trench-muted">
-              <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Trenchhub" className="w-5 h-5 opacity-80" />
-                <span className="font-semibold text-trench-dim">Trenchhub</span>
-              </div>
+              <span className="font-bold text-trench-accent tracking-tight text-sm">Trenchhub</span>
               <span>All communities are user-created and owned.</span>
               <span>© {new Date().getFullYear()}</span>
             </div>
