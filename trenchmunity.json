@@ -1,0 +1,29 @@
+{
+  "communities": [
+    {
+      "id": "6797e54a-fc6e-4e90-beb3-eaa9e2d48578",
+      "name": "Test #1",
+      "slug": "test-1",
+      "description": "This is a test CT",
+      "category": "Crypto",
+      "rules": "",
+      "banner_color": "#D4D0D5",
+      "banner_image": "/uploads/1775175179766-mbidxtrzl6g.png",
+      "icon_image": "/uploads/1775175176452-njm15pxm84.png",
+      "member_count": 1,
+      "post_count": 0,
+      "owner": "cryptoguy",
+      "created_at": "2026-04-03T00:13:03.061Z"
+    }
+  ],
+  "posts": [],
+  "members": [
+    {
+      "id": "b3d16f93-dde2-44ac-b87d-f88874aa1f65",
+      "community_id": "6797e54a-fc6e-4e90-beb3-eaa9e2d48578",
+      "username": "cryptoguy",
+      "joined_at": "2026-04-03T00:13:03.061Z"
+    }
+  ],
+  "post_likes": []
+}

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg:       #080808;
+  --surface:  #0f0f0f;
+  --card:     #111111;
+  --border:   #1c1c1c;
+  --border2:  #252525;
+  --accent:   #7AB541;
+  --accent2:  #8DC84A;
+  --silver:   #D4D0D5;
+  --text:     #f0f0f0;
+  --muted:    #555;
+  --dim:      #888;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: #080808; }
+::-webkit-scrollbar-thumb  { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333; }
+
+::selection { background: rgba(255,69,0,.25); color: #fff; }
+
+@layer components {
+  .btn-primary {
+    @apply bg-trench-accent hover:bg-trench-accent2 text-white font-semibold px-5 py-2.5 rounded-lg
+           transition-all duration-150 text-sm active:scale-[.97] disabled:opacity-40
+           disabled:cursor-not-allowed select-none;
+  }
+  .btn-secondary {
+    @apply bg-transparent hover:bg-trench-hover text-trench-dim hover:text-trench-text
+           font-medium px-5 py-2.5 rounded-lg transition-all duration-150 text-sm
+           border border-trench-border active:scale-[.97] select-none;
+  }
+  .btn-ghost {
+    @apply text-trench-muted hover:text-trench-text transition-colors duration-150 text-sm font-medium;
+  }
+  .card {
+    @apply bg-trench-card border border-trench-border rounded-xl overflow-hidden
+           transition-all duration-200;
+  }
+  .card-hover {
+    @apply hover:border-trench-accent/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/50;
+  }
+  .input {
+    @apply bg-trench-surface border border-trench-border text-trench-text rounded-lg px-4 py-2.5
+           text-sm w-full focus:outline-none focus:border-trench-accent/60 focus:ring-1
+           focus:ring-trench-accent/20 transition-all placeholder:text-trench-muted;
+  }
+  .label {
+    @apply block text-[11px] font-semibold text-trench-muted uppercase tracking-widest mb-2;
+  }
+  .badge {
+    @apply inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-md border;
+  }
+  .section-title {
+    @apply text-xs font-bold text-trench-muted uppercase tracking-widest;
+  }
+  .stat {
+    @apply flex items-center gap-1.5 text-xs text-trench-muted;
+  }
+}
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed var(--border2);
+  border-radius: 12px;
+  transition: border-color .2s, background .2s;
+  cursor: pointer;
+}
+.upload-zone:hover, .upload-zone.drag {
+  border-color: var(--accent);
+  background: rgba(255,69,0,.04);
+}
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #111 25%, #1a1a1a 50%, #111 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  border-radius: 8px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp .25s ease-out; }
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.scale-in { animation: scaleIn .2s ease-out; }
